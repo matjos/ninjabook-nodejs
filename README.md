@@ -6,12 +6,13 @@ You need a recent version of [Node.JS](http://nodejs.org/) installed. Then you d
 
 1. Clone the repo
 2. Run on the cloned copy: `npm install`
-3. Run the app with: `node app.js`
+3. Symlink the app with: `npm link`
+4. Run the app and list the commands with: `ninjabook help`
 
 The following commands are available:
 
-* `node app.js update` - Updates the data
-* `node app.js stack` - Prints out the ninja StackOverflow rep highscore
+* `ninjabook update` - Updates the data
+* `ninjabook stack` - Prints out the ninja StackOverflow rep highscore
 
 ## License
 
