@@ -3,9 +3,17 @@ var Q = require('q');
 
 module.exports.save = function (json) {
 	var deferred = Q.defer();
+	console.log('Saving data file to ' + file);
+	
+	if (!json) {
+		console.error(json);
+		deferred.reject(new Error('input was undefined or null'));
+		return deferred.promise;
+	}
 
 	fs.writeFile(file, JSON.stringify(json), function(err) {
 		if(err) {
+			console.error(err);
 			deferred.reject(err);
 			return;
 		}

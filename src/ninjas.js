@@ -1,4 +1,6 @@
 var cheerio = require('cheerio');
+var Q = require('q');
+var request = require('request');
 
 var regexTwitterHandle = /=(.)*/gi;
 
@@ -50,4 +52,25 @@ module.exports.scrapeNinjas = function(body) {
 		ninjas.push(getNinja($this));
 	});
 	return ninjas;
+};
+
+module.exports.scrapeAllNinjas = function() {
+	var deferred = Q.defer();
+	
+	// if no file is available to load, start scrapin'!
+	request('http://tretton37.com/career/meet/', function(err, resp, body) {
+		if (err) {
+			console.error(err);
+			deferred.reject(err);
+			return;
+		}
+		
+		var ninjas = module.exports.scrapeNinjas(body);
+		
+		require('./stackoverflow').requestScores(ninjas).then(function() {
+			deferred.resolve(ninjas);
+		});
+	});	
+	
+	return deferred.promise;
 };
