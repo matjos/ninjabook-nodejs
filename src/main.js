@@ -1,8 +1,8 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var _ = require('lodash');
+var Q = require('q');
 
-var ninjas = [];
 var regexTwitterHandle = /=(.)*/gi;
 
 var getTwitter = function($this) {
@@ -35,8 +35,7 @@ var getGithub = function($this) {
 	return github;	
 };
 
-var addNinja = function() {
-	var $this = cheerio(this);
+var getNinja = function($this) {
 	var ninja = {};
 	ninja.name = $this.find('h2').text();
 	
@@ -44,34 +43,62 @@ var addNinja = function() {
 	ninja.so = getStack($this);
 	ninja.github = getGithub($this);
 	
-	ninjas.push(ninja);
+	return ninja;
 };
 
-var printSoScore = function(ninja) {
+var requestScore = function(ninja) {
+	var deferred = Q.defer();
+
 	request(ninja.so.url, function(err, resp, body) {
+		if (err) {
+			deferred.reject(err);
+			return;
+		}
 		var $ = cheerio.load(body);
-		var rep = $('.reputation a').text();
-		
-		console.log(rep + '\t' + ninja.name);
+		ninja.so.rep = $('.reputation a').text();
+		deferred.resolve(ninja);
 	});
+
+	return deferred.promise;
 };
 
-request('http://tretton37.com/career/meet/', function(err, resp, body) {
-	if (err) {
-		console.error(err);
-	}
+var requestNinjas = function() {
+	var deferred = Q.defer(), ninjas = [];
 	
-	var $ = cheerio.load(body);
-	$('.meet-single-face-holder').each(addNinja);
+	request('http://tretton37.com/career/meet/', function(err, resp, body) {
+		if (err) {
+			deferred.reject(err);
+			return;
+		}
+
+		var $ = cheerio.load(body);
+		$('.meet-single-face-holder').each(function() {
+			var $this = cheerio(this);
+			ninjas.push(getNinja($this));
+		});
+
+		deferred.resolve(ninjas);
+	});	
 	
-	/*
-	_(ninjas).each(function(ninja) {
-		var logput = ninja.name;
-		if (ninja.twitter.screenName) logput += '\t' + ninja.twitter.screenName;
-		console.log(logput);
+	return deferred.promise;
+};
+
+requestNinjas()
+	.then(function(ninjas) {
+		var soNinjas = [];
+		_(ninjas)
+			.filter(function(ninja) { return ninja.so.url; })
+			.each(function(ninja) {
+				soNinjas.push(requestScore(ninja));
+			});
+		return Q.all(soNinjas);
+	})
+	.then(function(ninjas) {
+		_(ninjas)
+			.sortBy(function(ninja) {
+				return ninja.so.rep;
+			})
+			.each(function(ninja) {
+				console.log(ninja.so.rep + '\t' + ninja.name);
+			});
 	});
-	*/
-	_(ninjas)
-		.filter(function(ninja) { return ninja.so.url; })
-		.each(printSoScore);
-});	
