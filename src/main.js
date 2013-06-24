@@ -2,6 +2,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var _ = require('lodash');
 var Q = require('q');
+var fileDb = require('./filedb');
 
 var regexTwitterHandle = /=(.)*/gi;
 
@@ -46,55 +47,44 @@ var getNinja = function($this) {
 	return ninja;
 };
 
-var requestScore = function(ninja) {
-	var deferred = Q.defer();
-
-	request(ninja.so.url, function(err, resp, body) {
-		if (err) {
-			deferred.reject(err);
-			return;
-		}
-		var $ = cheerio.load(body);
-		ninja.so.rep = $('.reputation a').text();
-		deferred.resolve(ninja);
-	});
-
-	return deferred.promise;
-};
-
 var requestNinjas = function() {
 	var deferred = Q.defer(), ninjas = [];
 	
-	request('http://tretton37.com/career/meet/', function(err, resp, body) {
-		if (err) {
-			deferred.reject(err);
-			return;
-		}
+	fileDb.load().then(
+		function(loaded) {
+			deferred.resolve(loaded);
+		},
+		function(reason) {
+			// if no file is available to load, start scrapin'!
+			request('http://tretton37.com/career/meet/', function(err, resp, body) {
+				if (err) {
+					deferred.reject(err);
+					console.error(err);
+					return;
+				}
 
-		var $ = cheerio.load(body);
-		$('.meet-single-face-holder').each(function() {
-			var $this = cheerio(this);
-			ninjas.push(getNinja($this));
+				var $ = cheerio.load(body);
+				$('.meet-single-face-holder').each(function() {
+					var $this = cheerio(this);
+					ninjas.push(getNinja($this));
+				});
+				
+				require('./stackoverflow').requestScores(ninjas).then(function() {
+					deferred.resolve(ninjas);
+				});
+			});	
 		});
-
-		deferred.resolve(ninjas);
-	});	
 	
 	return deferred.promise;
 };
 
 requestNinjas()
-	.then(function(ninjas) {
-		var soNinjas = [];
-		_(ninjas)
-			.filter(function(ninja) { return ninja.so.url; })
-			.each(function(ninja) {
-				soNinjas.push(requestScore(ninja));
-			});
-		return Q.all(soNinjas);
-	})
+	.then()
 	.then(function(ninjas) {
 		_(ninjas)
+			.filter(function(ninja) {
+				return ninja.so.rep;
+			})
 			.sortBy(function(ninja) {
 				return ninja.so.rep;
 			})
