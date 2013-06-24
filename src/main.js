@@ -1,29 +1,23 @@
-var request = require('request');
-var cheerio = require('cheerio');
-var Q = require('q');
-var fileDb = require('./filedb');
+var cli = require('celeri');
+var ninjabook = require('./ninjas');
 
-var requestNinjas = function() {
-	var deferred = Q.defer();
-	
-	fileDb.load()
-		.then(
-			function(loadedNinjas) {
-				deferred.resolve(loadedNinjas);
-			}, 
-			function() {
-				require('./ninjas').scrapeAllNinjas().then(function(scrapedNinjas) {
-					fileDb.save(scrapedNinjas);
-					deferred.resolve(scrapedNinjas);
-				}, function(reason) {
-					console.error(reason);
-					deferred.reject(reason);
-				});
-			});
-	
-	return deferred.promise;
-};
+cli.option({
+	command: 'update',
+	description: 'Updates the ninjabook'
+}, function() {
+	ninjabook.requestNinjas(true).done();
+});
 
-var ninjaPromise = requestNinjas();
+cli.option({
+	command: 'stack',
+	description: 'Shows the StackOverflow rep highscore'
+}, function() {
+	ninjabook.requestNinjas()
+		.then(function (ninjas) {
+			console.log("StackOverflow Highscore".green);
+			console.log("-----------------------".green);
+			require('./stackoverflow').printScores(ninjas);
+		});
+});
 
-ninjaPromise.then(require('./stackoverflow').printScores);
+cli.parse(process.argv);

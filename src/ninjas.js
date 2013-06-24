@@ -45,7 +45,7 @@ var getNinja = function($this) {
 	return ninja;
 };
 
-module.exports.scrapeNinjas = function(body) {
+var scrapeNinjas = function(body) {
 	var $ = cheerio.load(body), ninjas = [];
 	$('.meet-single-face-holder').each(function() {
 		var $this = cheerio(this);
@@ -54,7 +54,7 @@ module.exports.scrapeNinjas = function(body) {
 	return ninjas;
 };
 
-module.exports.scrapeAllNinjas = function() {
+var scrapeAllNinjas = function() {
 	var deferred = Q.defer();
 	
 	// if no file is available to load, start scrapin'!
@@ -65,12 +65,41 @@ module.exports.scrapeAllNinjas = function() {
 			return;
 		}
 		
-		var ninjas = module.exports.scrapeNinjas(body);
+		var ninjas = scrapeNinjas(body);
 		
 		require('./stackoverflow').requestScores(ninjas).then(function() {
 			deferred.resolve(ninjas);
 		});
 	});	
+	
+	return deferred.promise;
+};
+
+module.exports.requestNinjas = function(forceUpdate) {
+	var deferred = Q.defer(), fileDb = require('./filedb');
+	
+	if (forceUpdate) {
+		scrapeAllNinjas().then(function(scrapedNinjas) {
+			fileDb.save(scrapedNinjas);
+			deferred.resolve(scrapedNinjas);
+		});		
+	} else {
+		fileDb.load()
+			.then(
+				function(loadedNinjas) {
+					deferred.resolve(loadedNinjas);
+				}, 
+				function() {
+					scrapeAllNinjas().then(function(scrapedNinjas) {
+						fileDb.save(scrapedNinjas);
+						deferred.resolve(scrapedNinjas);
+					}, function(reason) {
+						console.error(reason);
+						deferred.reject(reason);
+					});
+				});
+		
+	}
 	
 	return deferred.promise;
 };

@@ -1,10 +1,13 @@
 {
-  "name": "ninjabook-nodejs",
+  "name": "ninjabook",
   "version": "0.0.1",
   "description": "Get info on tretton37 ninjas",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin" : {
+    "ninjabook": "app.js"
   },
   "keywords": [
     "utils"
@@ -20,6 +23,7 @@
     "cheerio": "~0.12.0",
     "request": "~2.21.0",
     "lodash": "~1.3.1",
-    "q": "~0.9.6"
+    "q": "~0.9.6",
+    "celeri": "~0.3.2"
   }
 }
