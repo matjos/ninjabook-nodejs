@@ -2,7 +2,6 @@ var Q = require('q');
 var _ = require('lodash');
 var request = require('request');
 var cheerio = require('cheerio');
-var fileDb = require('./filedb');
 
 var requestScore = function(ninja) {
 	var deferred = Q.defer();
@@ -28,8 +27,18 @@ module.exports.requestScores = function(ninjas) {
 		.each(function(ninja) {
 			soNinjas.push(requestScore(ninja));
 		});
-	return Q.all(soNinjas).then(function(soNinjas) {
-			fileDb.save(ninjas);
-			return soNinjas;
+	return Q.all(soNinjas);
+};
+
+module.exports.printScores = function(ninjas) {
+	_(ninjas)
+		.filter(function(ninja) {
+			return ninja.so.rep;
+		})
+		.sortBy(function(ninja) {
+			return ninja.so.rep;
+		})
+		.each(function(ninja) {
+			console.log(ninja.so.rep + '\t' + ninja.name);
 		});
 };
