@@ -1,5 +1,7 @@
 # The Ninja Book in Node.JS
 
+Get basic info and stats of your favorite tretton37 ninjas.
+
 ## How to run
 
 You need a recent version of [Node.JS](http://nodejs.org/) installed. Then you do the following:
