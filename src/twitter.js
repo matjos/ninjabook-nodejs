@@ -70,18 +70,18 @@ module.exports.requestData = function(ninjas) {
 	});
 };
 
-module.exports.printFollowers = function(ninjas) {
+module.exports.printFollowers = function(ninjas, options) {
 	var _ninjas = filterTwitterers(ninjas).sortBy(function(ninja) {
 		return -ninja.twitter.data.followers_count;
-	}).first(10).each(function(ninja) {
+	}).first(options.top).each(function(ninja) {
 		console.log(ninja.twitter.data.followers_count + '\t' + ninja.name);
 	});
 };
 
-module.exports.printFriends = function(ninjas) {
+module.exports.printFriends = function(ninjas, options) {
 	var _ninjas = filterTwitterers(ninjas).sortBy(function(ninja) {
 		return -ninja.twitter.data.friends_count;
-	}).first(10).each(function(ninja) {
+	}).first(options.top).each(function(ninja) {
 		console.log(ninja.twitter.data.friends_count + '\t' + ninja.name);
 	});
 };
@@ -95,26 +95,26 @@ var stalkerQuotient = function(ninja) {
 	return nom / denom;
 };
 
-module.exports.printStalkers = function(ninjas) {
+module.exports.printStalkers = function(ninjas, options) {
 	var _ninjas = filterTwitterers(ninjas).sortBy(function(ninja) {
 		return -stalkerQuotient(ninja);
-	}).first(10).each(function(ninja) {
+	}).first(options.top).each(function(ninja) {
 		console.log(stalkerQuotient(ninja).toFixed(2) + '\t' + ninja.name);
 	});
 };
 
-module.exports.printBadass = function(ninjas) {
+module.exports.printBadass = function(ninjas, options) {
 	var _ninjas = filterTwitterers(ninjas).sortBy(function(ninja) {
 		return stalkerQuotient(ninja);
-	}).first(10).each(function(ninja) {
+	}).first(options.top).each(function(ninja) {
 		console.log((1/stalkerQuotient(ninja)).toFixed(2) + '\t' + ninja.name);
 	});
 };
 
-module.exports.printTweets = function(ninjas) {
+module.exports.printTweets = function(ninjas, options) {
 	var _ninjas = filterTwitterers(ninjas).sortBy(function(ninja) {
 		return -ninja.twitter.data.statuses_count;
-	}).first(10).each(function(ninja) {
+	}).first(options.top).each(function(ninja) {
 		console.log(ninja.twitter.data.statuses_count + '\t' + ninja.name);
 	});
 };

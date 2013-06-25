@@ -40,22 +40,22 @@ var filterNinjas = function(ninjas, sortByIterator) {
 		}).sortBy(sortByIterator);
 };
 
-module.exports.printRepos = function(ninjas) {
+module.exports.printRepos = function(ninjas, options) {
 	filterNinjas(ninjas, function(ninja) {
 			return -ninja.github.data.public_repos;
 		})
-		.first(10)
+		.first(options.top)
 		.each(function(ninja) {
 			console.log(ninja.github.data.public_repos + '\t' + ninja.name);
 		});
 	
 };
 
-module.exports.printGists = function(ninjas) {
+module.exports.printGists = function(ninjas, top) {
 	filterNinjas(ninjas, function(ninja) {
 			return -ninja.github.data.public_gists;
 		})
-		.first(10)
+		.first(options, top)
 		.each(function(ninja) {
 			console.log(ninja.github.data.public_gists + '\t' + ninja.name);
 		});

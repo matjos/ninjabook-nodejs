@@ -42,7 +42,7 @@ var getIntRep = function(ninja) {
 	return repInt;
 };
 
-module.exports.printScores = function(ninjas) {
+module.exports.printScores = function(ninjas, options) {
 	_(ninjas)
 		.filter(function(ninja) {
 			return ninja.so.rep;
@@ -50,7 +50,7 @@ module.exports.printScores = function(ninjas) {
 		.sortBy(function(ninja) {
 			return -getIntRep(ninja);
 		})
-		.first(10)
+		.first(options.top)
 		.each(function(ninja) {
 			console.log(getIntRep(ninja) + '\t' + ninja.name);
 		});
