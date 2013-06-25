@@ -41,22 +41,24 @@ var filterNinjas = function(ninjas, sortByIterator) {
 };
 
 module.exports.printRepos = function(ninjas, options) {
+	var i = 1;
 	filterNinjas(ninjas, function(ninja) {
 			return -ninja.github.data.public_repos;
 		})
 		.first(options.top)
 		.each(function(ninja) {
-			console.log(ninja.github.data.public_repos + '\t' + ninja.name);
+			console.log(i++ + '.\t' + ninja.github.data.public_repos + '\t' + ninja.name);
 		});
 	
 };
 
-module.exports.printGists = function(ninjas, top) {
+module.exports.printGists = function(ninjas, options) {
+	var i = 1;
 	filterNinjas(ninjas, function(ninja) {
 			return -ninja.github.data.public_gists;
 		})
-		.first(options, top)
+		.first(options.top)
 		.each(function(ninja) {
-			console.log(ninja.github.data.public_gists + '\t' + ninja.name);
+			console.log(i++ + '.\t' + ninja.github.data.public_gists + '\t' + ninja.name);
 		});
 };

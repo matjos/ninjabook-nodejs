@@ -71,18 +71,20 @@ module.exports.requestData = function(ninjas) {
 };
 
 module.exports.printFollowers = function(ninjas, options) {
+	var i = 1;
 	var _ninjas = filterTwitterers(ninjas).sortBy(function(ninja) {
 		return -ninja.twitter.data.followers_count;
 	}).first(options.top).each(function(ninja) {
-		console.log(ninja.twitter.data.followers_count + '\t' + ninja.name);
+		console.log(i++ + '.\t' + ninja.twitter.data.followers_count + '\t' + ninja.name);
 	});
 };
 
 module.exports.printFriends = function(ninjas, options) {
+	var i = 1;
 	var _ninjas = filterTwitterers(ninjas).sortBy(function(ninja) {
 		return -ninja.twitter.data.friends_count;
 	}).first(options.top).each(function(ninja) {
-		console.log(ninja.twitter.data.friends_count + '\t' + ninja.name);
+		console.log(i++ + '.\t' + ninja.twitter.data.friends_count + '\t' + ninja.name);
 	});
 };
 
@@ -96,25 +98,28 @@ var stalkerQuotient = function(ninja) {
 };
 
 module.exports.printStalkers = function(ninjas, options) {
+	var i = 1;
 	var _ninjas = filterTwitterers(ninjas).sortBy(function(ninja) {
 		return -stalkerQuotient(ninja);
 	}).first(options.top).each(function(ninja) {
-		console.log(stalkerQuotient(ninja).toFixed(2) + '\t' + ninja.name);
+		console.log(i++ + '.\t' + stalkerQuotient(ninja).toFixed(2) + '\t' + ninja.name);
 	});
 };
 
 module.exports.printBadass = function(ninjas, options) {
+	var i = 1;
 	var _ninjas = filterTwitterers(ninjas).sortBy(function(ninja) {
 		return stalkerQuotient(ninja);
 	}).first(options.top).each(function(ninja) {
-		console.log((1/stalkerQuotient(ninja)).toFixed(2) + '\t' + ninja.name);
+		console.log(i++ + '.\t' + (1/stalkerQuotient(ninja)).toFixed(2) + '\t' + ninja.name);
 	});
 };
 
 module.exports.printTweets = function(ninjas, options) {
+	var i = 1;
 	var _ninjas = filterTwitterers(ninjas).sortBy(function(ninja) {
 		return -ninja.twitter.data.statuses_count;
 	}).first(options.top).each(function(ninja) {
-		console.log(ninja.twitter.data.statuses_count + '\t' + ninja.name);
+		console.log(i++ + '.\t' + ninja.twitter.data.statuses_count + '\t' + ninja.name);
 	});
 };

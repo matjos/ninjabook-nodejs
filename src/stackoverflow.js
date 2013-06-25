@@ -43,6 +43,7 @@ var getIntRep = function(ninja) {
 };
 
 module.exports.printScores = function(ninjas, options) {
+	var i = 1;
 	_(ninjas)
 		.filter(function(ninja) {
 			return ninja.so.rep;
@@ -52,6 +53,6 @@ module.exports.printScores = function(ninjas, options) {
 		})
 		.first(options.top)
 		.each(function(ninja) {
-			console.log(getIntRep(ninja) + '\t' + ninja.name);
+			console.log(i++ + '.\t' + getIntRep(ninja) + '\t' + ninja.name);
 		});
 };
