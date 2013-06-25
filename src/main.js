@@ -3,10 +3,16 @@ var _ = require('lodash');
 var S = require('string');
 var program = require('commander');
 var pjson = require('../package.json');
+var colors = require('colors');
 
 var printHeader = function(header) {
+	var hr = S('-').repeat(header.length).s;
+	if (!program.nocolors) {
+		header = header.green;
+		hr = hr.green;
+	}
 	console.log(header);
-	console.log(S('-').repeat(header.length).s);
+	console.log(hr);
 };
 
 var processNinjas = function(header, printCallback) {
@@ -22,6 +28,7 @@ var processNinjas = function(header, printCallback) {
 
 program
 	.option('-t, --top <n>', 'Filter out the top <n> of list output', parseInt)
+	.option('-c, --nocolors', 'Turn off cli colors')
 	.version(pjson.version);
 
 program.command('update')
