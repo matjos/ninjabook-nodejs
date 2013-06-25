@@ -7,9 +7,11 @@ Get basic info and stats of your favorite tretton37 ninjas.
 You need a recent version of [Node.JS](http://nodejs.org/) installed. Then you do the following:
 
 1. Clone the repo
-2. Run on the cloned copy: `npm install`
+2. Install dependencies by executing the following on the cloned copy: `npm install`
 3. Symlink the app with: `npm link`
 4. Run the app and list the commands with: `ninjabook help`
+
+## Commands
 
 The following commands are available:
 
@@ -29,6 +31,9 @@ The following commands are available:
 
 ### Twitter
 
+If you want to download data from the Twitter API, issue `ninjabook twitterapi` to add OAuth credentials.
+
+* `ninjabook twitterapi` - Prompts for OAuth keys and secret words
 * `ninjabook followers` - Prints out top 10 ninjas ranked by number of followers
 * `ninjabook friends` - Prints out top 10 ninjas ranked by number of friends
 * `ninjabook tweets` - Prints out top 10 ninjas ranked by number of tweets
