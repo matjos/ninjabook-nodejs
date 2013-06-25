@@ -67,9 +67,11 @@ var scrapeAllNinjas = function() {
 		
 		var ninjas = scrapeNinjas(body);
 		
-		require('./stackoverflow').requestScores(ninjas).then(function() {
-			deferred.resolve(ninjas);
-		});
+		Q.all([
+				require('./stackoverflow').requestScores(ninjas)
+			]).then(function() {
+				deferred.resolve(ninjas);
+			});
 	});	
 	
 	return deferred.promise;
