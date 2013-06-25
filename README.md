@@ -15,6 +15,8 @@ The following commands are available:
 
 * `ninjabook update` - Updates the data
 * `ninjabook stack` - Prints out the ninja StackOverflow rep highscore
+* `ninjabook repos` - Prints out ninjas at Github ranked by number of repos
+* `ninjabook gists` - Prints out ninjas at Github ranked by number of gists
 
 ## License
 
