@@ -27,9 +27,17 @@ var getStack = function($this) {
 };
 
 var getGithub = function($this) {
-	var url = $this.find('.so').attr('href'), github = {};
+	var url = $this.find('.github').attr('href'), github = {};
 	
-	github.url = url;
+	if (url) {
+		github.url = url;
+		var match = /github.com\/(.)*$/gi.exec(url);
+		if (match) {
+			var username = match[0].substring(11);
+			github.username = username;
+			github.apiurl = "https://api.github.com/users/" + username;
+		}
+	}
 	
 	return github;	
 };
@@ -55,10 +63,11 @@ var scrapeNinjas = function(body) {
 };
 
 var scrapeAllNinjas = function() {
-	var deferred = Q.defer();
+	var deferred = Q.defer(), meetUrl = 'http://tretton37.com/career/meet/';
 	
 	// if no file is available to load, start scrapin'!
-	request('http://tretton37.com/career/meet/', function(err, resp, body) {
+	console.log("Requesting: " + meetUrl + " ...");
+	request(meetUrl, function(err, resp, body) {
 		if (err) {
 			console.error(err);
 			deferred.reject(err);
@@ -68,7 +77,8 @@ var scrapeAllNinjas = function() {
 		var ninjas = scrapeNinjas(body);
 		
 		Q.all([
-				require('./stackoverflow').requestScores(ninjas)
+				require('./stackoverflow').requestScores(ninjas),
+				require('./github').requestInfo(ninjas)
 			]).then(function() {
 				deferred.resolve(ninjas);
 			});

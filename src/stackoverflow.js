@@ -6,7 +6,13 @@ var cheerio = require('cheerio');
 var requestScore = function(ninja) {
 	var deferred = Q.defer();
 
-	request(ninja.so.url, function(err, resp, body) {
+	console.log("Requesting: " + ninja.so.url + " ...");
+	request({
+		url: ninja.so.url,
+		headers: {
+			'user-agent': "ninjabook"
+		} 
+	}, function(err, resp, body) {
 		if (err) {
 			deferred.reject(err);
 			console.error(err);
