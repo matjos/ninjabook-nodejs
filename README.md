@@ -17,6 +17,7 @@ The following commands are available:
 * `ninjabook stack` - Prints out the ninja StackOverflow rep highscore
 * `ninjabook repos` - Prints out ninjas at Github ranked by number of repos
 * `ninjabook gists` - Prints out ninjas at Github ranked by number of gists
+* `ninjabook peek ninjaSubString` - Peeks into the JSON data for a ninja whose name matches the given substring.
 
 ## License
 

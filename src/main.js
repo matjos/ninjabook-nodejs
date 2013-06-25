@@ -1,5 +1,7 @@
 var cli = require('celeri');
 var ninjabook = require('./ninjas');
+var _ = require('lodash');
+var S = require('string');
 
 cli.option({
 	command: 'update',
@@ -41,6 +43,25 @@ cli.option({
 			console.log("Number of Github Gists".green);
 			console.log("----------------------".green);
 			require('./github').printGists(ninjas);
+		});
+});
+
+cli.option({
+	command: 'peek :ninja',
+	description: 'Peek into a ninja\'s public social media data'
+}, function(data) {
+	if (!data.ninja) {
+		return;
+	} 
+	var ss = data.ninja.toLowerCase();
+	ninjabook.requestNinjas()
+		.then(function(ninjas) {
+			_(ninjas).filter(function (ninja) {
+				return S(ninja.name.toLowerCase()).contains(ss);
+			}).each(function(ninja) {
+				console.log((ninja.name + ":").green);
+				console.log(ninja);
+			});
 		});
 });
 
