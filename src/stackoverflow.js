@@ -36,15 +36,22 @@ module.exports.requestScores = function(ninjas) {
 	return Q.all(soNinjas);
 };
 
+var getIntRep = function(ninja) {
+	var rep = ninja.so.rep;
+	var repInt = parseInt(rep.replace(/,/g, ''), 10);
+	return repInt;
+};
+
 module.exports.printScores = function(ninjas) {
 	_(ninjas)
 		.filter(function(ninja) {
 			return ninja.so.rep;
 		})
 		.sortBy(function(ninja) {
-			return ninja.so.rep;
+			return -getIntRep(ninja);
 		})
+		.first(10)
 		.each(function(ninja) {
-			console.log(ninja.so.rep + '\t' + ninja.name);
+			console.log(getIntRep(ninja) + '\t' + ninja.name);
 		});
 };

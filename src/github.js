@@ -42,8 +42,9 @@ var filterNinjas = function(ninjas, sortByIterator) {
 
 module.exports.printRepos = function(ninjas) {
 	filterNinjas(ninjas, function(ninja) {
-			return ninja.github.data.public_repos;
+			return -ninja.github.data.public_repos;
 		})
+		.first(10)
 		.each(function(ninja) {
 			console.log(ninja.github.data.public_repos + '\t' + ninja.name);
 		});
@@ -52,8 +53,9 @@ module.exports.printRepos = function(ninjas) {
 
 module.exports.printGists = function(ninjas) {
 	filterNinjas(ninjas, function(ninja) {
-			return ninja.github.data.public_gists;
+			return -ninja.github.data.public_gists;
 		})
+		.first(10)
 		.each(function(ninja) {
 			console.log(ninja.github.data.public_gists + '\t' + ninja.name);
 		});
