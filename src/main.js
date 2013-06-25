@@ -98,10 +98,20 @@ cli.option({
 	command: 'stalkers',
 	description: 'Ranks ninjas by stalk quotient (following/followers)'
 }, function() {
-	printHeader("Most stalking (following/followers) ninjas");
+	printHeader("Most stalking ninjas according to twitter (following/followers)");
 	ninjabook.requestNinjas()
 		.then(require('./twitter').printStalkers);
 });
+
+cli.option({
+	command: 'badass',
+	description: 'Ranks ninjas by badass quotient (followers/following)'
+}, function() {
+	printHeader("Most badass ninjas according to twitter (followers/following)");
+	ninjabook.requestNinjas()
+		.then(require('./twitter').printBadass);
+});
+
 
 cli.option({
 	command: 'twitterapi',

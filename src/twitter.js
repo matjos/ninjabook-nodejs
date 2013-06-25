@@ -103,6 +103,14 @@ module.exports.printStalkers = function(ninjas) {
 	});
 };
 
+module.exports.printBadass = function(ninjas) {
+	var _ninjas = filterTwitterers(ninjas).sortBy(function(ninja) {
+		return stalkerQuotient(ninja);
+	}).first(10).each(function(ninja) {
+		console.log((1/stalkerQuotient(ninja)).toFixed(2) + '\t' + ninja.name);
+	});
+};
+
 module.exports.printTweets = function(ninjas) {
 	var _ninjas = filterTwitterers(ninjas).sortBy(function(ninja) {
 		return -ninja.twitter.data.statuses_count;
