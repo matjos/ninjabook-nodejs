@@ -87,7 +87,7 @@ cli.option({
 
 cli.option({
 	command: 'tweets',
-	description: 'Ranks ninjas according to number of Twitter followers'
+	description: 'Ranks ninjas according to number of tweets'
 }, function() {
 	printHeader("Number of tweets");
 	ninjabook.requestNinjas()

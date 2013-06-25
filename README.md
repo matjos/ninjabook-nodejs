@@ -13,11 +13,27 @@ You need a recent version of [Node.JS](http://nodejs.org/) installed. Then you d
 
 The following commands are available:
 
+### Housekeeping
+
 * `ninjabook update` - Updates the data
+* `ninjabook peek ninjaSubString` - Peeks into the JSON data for a ninja whose name matches the given substring.
+
+### Stack overflow
+
 * `ninjabook stack` - Prints out the ninja StackOverflow rep highscore
+
+### Github
+
 * `ninjabook repos` - Prints out ninjas at Github ranked by number of repos
 * `ninjabook gists` - Prints out ninjas at Github ranked by number of gists
-* `ninjabook peek ninjaSubString` - Peeks into the JSON data for a ninja whose name matches the given substring.
+
+### Twitter
+
+* `ninjabook followers` - Prints out top 10 ninjas ranked by number of followers
+* `ninjabook friends` - Prints out top 10 ninjas ranked by number of friends
+* `ninjabook tweets` - Prints out top 10 ninjas ranked by number of tweets
+* `ninjabook stalkers` - Prints out top 10 ninjas ranked by stalker quotient
+* `ninjabook badass` - Prints out top 10 ninjas ranked by badass quotient
 
 ## License
 
