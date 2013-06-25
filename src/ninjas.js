@@ -2,17 +2,16 @@ var cheerio = require('cheerio');
 var Q = require('q');
 var request = require('request');
 
-var regexTwitterHandle = /=(.)*/gi;
-
 var getTwitter = function($this) {
-	var twitterUrl = $this.find('.twitter').attr('href'), twitter = {};
+	var twitterUrl = $this.find('.twitter').attr('href'), twitter = {}, screenName;
 	
 	twitter.url = twitterUrl;
-	if (twitterUrl) {
-		var match = regexTwitterHandle.exec(twitterUrl);
+	if (twitter.url) {
+		var match = /=(.)*/gi.exec(twitter.url);
 		if (match) {
-			twitter.screenName = match[0].substring(1);
+			screenName = match[0].substring(1);
 		}
+		twitter.screenName = screenName;
 	}
 	
 	return twitter;
@@ -78,7 +77,8 @@ var scrapeAllNinjas = function() {
 		
 		Q.all([
 				require('./stackoverflow').requestScores(ninjas),
-				require('./github').requestInfo(ninjas)
+				require('./github').requestInfo(ninjas),
+				require('./twitter').requestData(ninjas)
 			]).then(function() {
 				deferred.resolve(ninjas);
 			});

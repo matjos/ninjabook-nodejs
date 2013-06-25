@@ -3,6 +3,11 @@ var ninjabook = require('./ninjas');
 var _ = require('lodash');
 var S = require('string');
 
+var printHeader = function(header) {
+	console.log(header.green);
+	console.log(S('-').repeat(header.length).s.green);
+};
+
 cli.option({
 	command: 'update',
 	description: 'Updates the ninjabook'
@@ -16,32 +21,29 @@ cli.option({
 }, function() {
 	ninjabook.requestNinjas()
 		.then(function (ninjas) {
-			console.log("StackOverflow Highscore".green);
-			console.log("-----------------------".green);
+			printHeader("StackOverflow Highscore");
 			require('./stackoverflow').printScores(ninjas);
 		});
 });
 
 cli.option({
 	command: 'repos',
-	description: 'Ranks according to number of github repos'
+	description: 'Ranks ninjas according to number of github repos'
 }, function() {
 	ninjabook.requestNinjas()
 		.then(function(ninjas) {
-			console.log("Number of Github Repos".green);
-			console.log("----------------------".green);
+			printHeader("Number of Github Repos");
 			require('./github').printRepos(ninjas);
 		});
 });
 
 cli.option({
 	command: 'gists',
-	description: 'Ranks according to number of github gists'
+	description: 'Ranks ninjas according to number of github gists'
 }, function() {
 	ninjabook.requestNinjas()
 		.then(function(ninjas) {
-			console.log("Number of Github Gists".green);
-			console.log("----------------------".green);
+			printHeader("Number of Github Gists");
 			require('./github').printGists(ninjas);
 		});
 });
@@ -63,6 +65,66 @@ cli.option({
 				console.log(ninja);
 			});
 		});
+});
+
+cli.option({
+	command: 'followers',
+	description: 'Ranks ninjas according to number of Twitter followers'
+}, function() {
+	printHeader("Number of twitter followers");
+	ninjabook.requestNinjas()
+		.then(require('./twitter').printFollowers);
+});
+
+cli.option({
+	command: 'friends',
+	description: 'Ranks ninjas according to number of Twitter friends (that the ninja is following)'
+}, function() {
+	printHeader("Number of twitter friends");
+	ninjabook.requestNinjas()
+		.then(require('./twitter').printFriends);
+});
+
+cli.option({
+	command: 'tweets',
+	description: 'Ranks ninjas according to number of Twitter followers'
+}, function() {
+	printHeader("Number of tweets");
+	ninjabook.requestNinjas()
+		.then(require('./twitter').printTweets);
+});
+
+cli.option({
+	command: 'stalkers',
+	description: 'Ranks ninjas by stalk quotient (following/followers)'
+}, function() {
+	printHeader("Most stalking (following/followers) ninjas");
+	ninjabook.requestNinjas()
+		.then(require('./twitter').printStalkers);
+});
+
+cli.option({
+	command: 'twitterapi',
+	description: 'Save twitter OAuth credentials'
+}, function() {
+	var o = {};
+	cli.prompt('Consumer key: ', function(input) {
+		o.consumer_key = input;
+	});
+	cli.prompt('Consumer secret: ', function(input) {
+		o.consumer_secret = input;
+	});
+	cli.prompt('Access token: ', function(input) {
+		o.oauth_token = input;
+	});
+	cli.prompt('Access token key: ', function(input) {
+		o.oauth_token_secret = input;
+		require('./filedb').saveTwitterOauth(o).then(function() {
+			console.log('Saved twitter credentials');
+			process.exit(0);
+		});
+	});
+	cli.open();
 });
 
 cli.parse(process.argv);

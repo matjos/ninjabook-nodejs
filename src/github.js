@@ -1,7 +1,6 @@
 var Q = require('q');
 var _ = require('lodash');
 var request = require('request');
-var cheerio = require('cheerio');
 
 var requestInfo = function(ninja) {
 	var deferred = Q.defer();

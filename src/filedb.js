@@ -1,7 +1,7 @@
-var fs = require('fs'), file = './db.json';
+var fs = require('fs'), dbfile = './db.json', twitterfile = './twitter_oauth.json';
 var Q = require('q');
 
-module.exports.save = function (json) {
+var saveJSON = function(json, file) {
 	var deferred = Q.defer();
 	console.log('Saving data file to ' + file);
 	
@@ -25,7 +25,7 @@ module.exports.save = function (json) {
 	return deferred.promise;
 };
 
-module.exports.load = function() {
+var loadJSON = function(file) {
 	var deferred = Q.defer();
 	
 	fs.readFile(file, function(err, data) {
@@ -37,5 +37,21 @@ module.exports.load = function() {
 		deferred.resolve(JSON.parse(data));
 	});
 	
-	return deferred.promise;
+	return deferred.promise;	
+};
+
+module.exports.save = function (json) {
+	return saveJSON(json, dbfile);
+};
+
+module.exports.saveTwitterOauth = function(json) {
+	return saveJSON(json, twitterfile);
+};
+
+module.exports.load = function() {
+	return loadJSON(dbfile);
+};
+
+module.exports.loadTwitterOauth = function() {
+	return loadJSON(twitterfile);
 };
