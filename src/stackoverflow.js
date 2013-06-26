@@ -2,6 +2,7 @@ var Q = require('q');
 var _ = require('lodash');
 var request = require('request');
 var cheerio = require('cheerio');
+var print = require('./print');
 
 var requestScore = function(ninja) {
 	var deferred = Q.defer();
@@ -42,17 +43,14 @@ var getIntRep = function(ninja) {
 	return repInt;
 };
 
+var filtered = function(ninjas) {
+	return _(ninjas).filter(function(ninja) {
+		return ninja.so.rep;
+	});
+};
+
 module.exports.printScores = function(ninjas, options) {
-	var i = 1;
-	_(ninjas)
-		.filter(function(ninja) {
-			return ninja.so.rep;
-		})
-		.sortBy(function(ninja) {
-			return -getIntRep(ninja);
-		})
-		.first(options.top)
-		.each(function(ninja) {
-			console.log(i++ + '.\t' + getIntRep(ninja) + '\t' + ninja.name);
-		});
+	print.ranked(filtered(ninjas), options, function(ninja) {
+		return getIntRep(ninja);		
+	});
 };

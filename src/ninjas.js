@@ -116,25 +116,3 @@ module.exports.requestNinjas = function (forceUpdate) {
 	
 	return deferred.promise;
 };
-
-module.exports.ranked = function(ninjas, i_callback) {
-	var i = 0, rankList = []; 
-
-	ninjas.sortBy(function (ninja) { 
-		return -i_callback(ninja); 
-	}).each(function (ninja) {
-		var previous = rankList[i];
-		if (!previous) {
-			rankList.push([ninja]);
-		}
-		else if(i_callback(previous[0]) === i_callback(ninja)) {
-			previous.push(ninja);
-		}
-		else {
-			rankList.push([ninja]);
-			i++;
-		}
-	});
-	
-	return rankList;	
-};

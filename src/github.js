@@ -1,6 +1,7 @@
 var Q = require('q');
 var _ = require('lodash');
 var request = require('request');
+var print = require('./print');
 
 var requestInfo = function(ninja) {
 	var deferred = Q.defer();
@@ -34,31 +35,20 @@ module.exports.requestInfo = function(ninjas) {
 	return Q.all(gNinjas);
 };
 
-var filterNinjas = function(ninjas, sortByIterator) {
+var filtered = function(ninjas) {
 	return _(ninjas).filter(function(ninja) {
-			return ninja.github.data;
-		}).sortBy(sortByIterator);
+		return ninja.github.data;
+	});
 };
 
 module.exports.printRepos = function(ninjas, options) {
-	var i = 1;
-	filterNinjas(ninjas, function(ninja) {
-			return -ninja.github.data.public_repos;
-		})
-		.first(options.top)
-		.each(function(ninja) {
-			console.log(i++ + '.\t' + ninja.github.data.public_repos + '\t' + ninja.name);
-		});
-	
+	print.ranked(filtered(ninjas), options, function(ninja) {
+		return ninja.github.data.public_repos;		
+	});
 };
 
 module.exports.printGists = function(ninjas, options) {
-	var i = 1;
-	filterNinjas(ninjas, function(ninja) {
-			return -ninja.github.data.public_gists;
-		})
-		.first(options.top)
-		.each(function(ninja) {
-			console.log(i++ + '.\t' + ninja.github.data.public_gists + '\t' + ninja.name);
-		});
+	print.ranked(filtered(ninjas), options, function(ninja) {
+		return ninja.github.data.public_gists;		
+	});
 };
