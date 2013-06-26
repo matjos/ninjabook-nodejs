@@ -4,6 +4,7 @@ var request = require('request');
 var _ = require('lodash');
 var OAuth = require('OAuth');
 var print = require('./print');
+var S = require('string');
 
 var getTwitterData = function(oauth, params, screenNames) {
 	var deferred = Q.defer();
@@ -71,15 +72,25 @@ module.exports.requestData = function(ninjas) {
 	});
 };
 
+var withScreenName = function(datum, ninja) {
+	return S(datum).padLeft(6).s 
+		+ '\t @' 
+		+ S(ninja.twitter.screenName).padRight(21, '.').s;
+};
+
 module.exports.printFollowers = function(ninjas, options) {
 	print.ranked(filterTwitterers(ninjas), options, function(ninja) {
-		return ninja.twitter.data.followers_count;
+		return ninja.twitter.data.followers_count;		
+	}, function(ninja) {
+		return withScreenName(ninja.twitter.data.followers_count, ninja);
 	});
 };
 
 module.exports.printFriends = function(ninjas, options) {
 	print.ranked(filterTwitterers(ninjas), options, function(ninja) {
 		return ninja.twitter.data.friends_count;
+	}, function(ninja) {
+		return withScreenName(ninja.twitter.data.friends_count, ninja);
 	});
 };
 
@@ -96,7 +107,7 @@ module.exports.printStalkers = function(ninjas, options) {
 	print.ranked(filterTwitterers(ninjas), options, function(ninja) {
 		return stalkerQuotient(ninja);		
 	}, function(ninja) {
-		return stalkerQuotient(ninja).toFixed(2);
+		return withScreenName(stalkerQuotient(ninja).toFixed(2), ninja);
 	});
 };
 
@@ -104,7 +115,7 @@ module.exports.printBadass = function(ninjas, options) {
 	print.ranked(filterTwitterers(ninjas), options, function(ninja) {
 		return 1 / stalkerQuotient(ninja);		
 	}, function(ninja) {
-		return (1/stalkerQuotient(ninja)).toFixed(2);
+		return withScreenName((1/stalkerQuotient(ninja)).toFixed(2), ninja);
 	});
 };
 
