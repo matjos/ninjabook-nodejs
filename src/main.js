@@ -45,7 +45,7 @@ program.command('stack')
 	});
 
 program.command('stackvets')
-	.description('Shows the StackOverflow veterans')
+	.description('Shows the StackOverflow veterans (ordered by id)')
 	.action(function (){
 		processNinjas("StackOverflow Veterans", 
 			require('./stackoverflow').printIds);
