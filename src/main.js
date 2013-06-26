@@ -44,6 +44,13 @@ program.command('stack')
 			require('./stackoverflow').printScores);
 	});
 
+program.command('stackvets')
+	.description('Shows the StackOverflow veterans')
+	.action(function (){
+		processNinjas("StackOverflow Veterans", 
+			require('./stackoverflow').printIds);
+	});
+
 program.command('repos')
 	.description('Ranks ninjas according to number of github repos')
 	.action(function() {

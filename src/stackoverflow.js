@@ -4,6 +4,11 @@ var request = require('request');
 var cheerio = require('cheerio');
 var print = require('./print');
 
+var getId = function(url) {
+	var match = /\/[0-9]*$/gi.exec(url);
+	return match[0].substring(1);
+};
+
 var requestScore = function(ninja) {
 	var deferred = Q.defer();
 
@@ -21,6 +26,7 @@ var requestScore = function(ninja) {
 		}
 		var $ = cheerio.load(body);
 		ninja.so.rep = $('.reputation a').text();
+		ninja.so.id = getId(ninja.so.url);
 		deferred.resolve(ninja);
 	});
 
@@ -52,5 +58,13 @@ var filtered = function(ninjas) {
 module.exports.printScores = function(ninjas, options) {
 	print.ranked(filtered(ninjas), options, function(ninja) {
 		return getIntRep(ninja);		
+	});
+};
+
+module.exports.printIds = function(ninjas, options) {
+	print.ranked(filtered(ninjas), options, function(ninja) {
+		return -ninja.so.id;		
+	}, function(ninja) {
+		return ninja.so.id;
 	});
 };
