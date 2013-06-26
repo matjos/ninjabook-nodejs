@@ -117,9 +117,22 @@ module.exports.printBadass = function(ninjas, options) {
 
 module.exports.printTweets = function(ninjas, options) {
 	var i = 1;
+	var twitterers = require('./ninjas').ranked(filterTwitterers(ninjas), function(ninja) {
+		return ninja.twitter.data.statuses_count;
+	});
+	_(twitterers).first(options.top).each(function(ninjas) {
+		var first = ninjas[0];
+		var ninjaNames = _.map(ninjas, function(ninja) {
+			return ninja.name;
+		}).join(', ');
+		console.log( (i++) + '.\t' + first.twitter.data.statuses_count + '\t' + ninjaNames);
+		//console.log(i++ + '.\t' + ninjas[0].twitter.data.statuses_count + '\t' + _.join(ninjas, ', '));
+	});
+	/*
 	var _ninjas = filterTwitterers(ninjas).sortBy(function(ninja) {
 		return -ninja.twitter.data.statuses_count;
 	}).first(options.top).each(function(ninja) {
 		console.log(i++ + '.\t' + ninja.twitter.data.statuses_count + '\t' + ninja.name);
 	});
+	*/
 };
