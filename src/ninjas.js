@@ -75,7 +75,7 @@ var scrapeAllNinjas = function() {
 		
 		var ninjas = scrapeNinjas(body);
 		
-		Q.all([
+		Q.allSettled([
 				require('./stackoverflow').requestScores(ninjas),
 				require('./github').requestInfo(ninjas),
 				require('./twitter').requestData(ninjas)

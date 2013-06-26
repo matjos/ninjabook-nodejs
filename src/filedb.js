@@ -53,5 +53,9 @@ module.exports.load = function() {
 };
 
 module.exports.loadTwitterOauth = function() {
-	return loadJSON(twitterfile);
+	var promise = loadJSON(twitterfile);
+	promise.fail(function() {
+		console.log("Failed to load twitter oauth settings. Set them with `ninjabook twitterapi`");
+	});
+	return promise;
 };
