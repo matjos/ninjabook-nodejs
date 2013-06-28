@@ -23,7 +23,7 @@ The following commands are available:
 ### Stack overflow
 
 * `ninjabook stack` - Prints out the ninja StackOverflow rep highscore
-* `ninjabook stack` - Prints out the StackOverflow veterans (sorted by id)
+* `ninjabook stackvets` - Prints out the StackOverflow veterans (sorted by id)
 
 ### Github
 
