@@ -73,9 +73,9 @@ module.exports.requestData = function(ninjas) {
 };
 
 var withScreenName = function(datum, ninja) {
-	return S(datum).padLeft(6).s 
-		+ '\t @' 
-		+ S(ninja.twitter.screenName).padRight(21, '.').s;
+	return S(datum).padLeft(6).s +
+		'\t @' +
+		S(ninja.twitter.screenName).padRight(21, '.').s;
 };
 
 module.exports.printFollowers = function(ninjas, options) {
