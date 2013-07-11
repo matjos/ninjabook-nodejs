@@ -19,7 +19,7 @@ var saveJSON = function(json, file) {
 		}
 
 		console.log("The file was saved!");
-		deferred.resolve();
+		deferred.resolve(json);
 	});
 	
 	return deferred.promise;
@@ -39,6 +39,9 @@ var loadJSON = function(file) {
 	
 	return deferred.promise;	
 };
+
+module.exports.loadJSON = loadJSON;
+module.exports.saveJSON = saveJSON;
 
 module.exports.save = function (json) {
 	return saveJSON(json, dbfile);

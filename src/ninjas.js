@@ -92,10 +92,7 @@ module.exports.requestNinjas = function (forceUpdate) {
 	var deferred = Q.defer(), fileDb = require('./filedb');
 	
 	if (forceUpdate) {
-		scrapeAllNinjas().then(function(scrapedNinjas) {
-			fileDb.save(scrapedNinjas);
-			deferred.resolve(scrapedNinjas);
-		});		
+		scrapeAllNinjas().then(fileDb.save);		
 	} else {
 		fileDb.load()
 			.then(
