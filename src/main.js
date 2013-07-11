@@ -51,6 +51,13 @@ program.command('stackvets')
 			require('./stackoverflow').printIds);
 	});
 
+program.command('badges')
+	.description('Shows the StackOverflow badge count')
+	.action(function (){
+		processNinjas("StackOverflow Badge Count Highscore", 
+			require('./stackoverflow').printBadges);
+	});
+
 program.command('repos')
 	.description('Ranks ninjas according to number of github repos')
 	.action(function() {

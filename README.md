@@ -24,6 +24,7 @@ The following commands are available:
 
 * `ninjabook stack` - Prints out the ninja StackOverflow rep highscore
 * `ninjabook stackvets` - Prints out the StackOverflow veterans (sorted by id)
+* `ninjabook badges` - Prints out the StackOverflow badge count highscore
 
 ### Github
 

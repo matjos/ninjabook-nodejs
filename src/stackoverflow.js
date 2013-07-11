@@ -29,3 +29,14 @@ module.exports.printIds = function(ninjas, options) {
 		return moment(millis).format();
 	});
 };
+
+var badgeSum = function(ninja) {
+	var badges = ninja.so.data.badge_counts;
+	return badges.gold + badges.silver + badges.bronze;
+};
+
+module.exports.printBadges = function(ninjas, options) {
+	print.ranked(filtered(ninjas), options, function(ninja) {
+		return badgeSum(ninja);
+	});
+};
