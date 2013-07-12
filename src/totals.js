@@ -76,7 +76,7 @@ module.exports = function(ninjas, options) {
 	console.log('Total no. of public gists:\t', sums.gists, 'gists');
 	console.log(' ', topNinja.gists.name, 
 		'has the most with', 
-		topNinja.repos.github.data.public_gists, 
+		topNinja.gists.github.data.public_gists, 
 		"gists");
 		
 	console.log(twitterers.size() + ' ninjas uses Twitter');
