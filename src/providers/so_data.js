@@ -1,7 +1,6 @@
 var request = require('request'), 
 	zlib = require('zlib'), 
 	fs = require('fs'), 
-	fileDb = require('../filedb'),
 	Q = require('q'),
 	_ = require('lodash'),
 	jsonstream = require('JSONStream'),
@@ -67,6 +66,5 @@ var addSoData = function(ninjas) {
 };
 
 module.exports = function(ninjas) {
-	return addSoData(ninjas)
-		.then(fileDb.save);
+	return addSoData(ninjas);
 };

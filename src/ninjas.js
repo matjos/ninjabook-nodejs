@@ -1,14 +1,13 @@
 var Q = require('q');
-var getMeet = require('./providers/meet_data');
 
 var scrapeAllNinjas = function() {
 	var deferred = Q.defer();
 	
-	getMeet().then(function(ninjas) {
+	require('./providers/meet_data')().then(function(ninjas) {
 		Q.allSettled([
-			require('./stackoverflow').requestScores(ninjas),
-			require('./github').requestInfo(ninjas),
-			require('./twitter').requestData(ninjas)
+			require('./providers/so_data')(ninjas),
+			require('./providers/github_data')(ninjas),
+			require('./providers/twitter_data')(ninjas)
 		]).then(function() {
 			deferred.resolve(ninjas);
 		});
