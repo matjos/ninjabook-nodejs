@@ -3,6 +3,12 @@ var _ = require('lodash');
 var print = require('./print');
 var S = require('string');
 
+var filterTwitterers = function(ninjas) {
+	return _(ninjas).filter(function(ninja) {
+		return ninja.twitter.url;
+	});
+};
+
 var withScreenName = function(datum, ninja) {
 	return S(datum).padLeft(6).s +
 		'\t @' +
