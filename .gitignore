@@ -20,4 +20,4 @@ node_modules
 
 db.json
 twitter_oauth.json
-
+config.json
