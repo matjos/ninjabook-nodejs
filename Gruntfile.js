@@ -7,7 +7,14 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		jshint: {
-			all: ['Gruntfile.js', './src/**/*.js']
+			all: {
+				files: {
+					src: ['Gruntfile.js', './src/**/*.js']
+				},
+				options: {
+					ignores: ['./src/web/**/bootstrap*.js']					
+				}
+			}
 		},
 		watch: {
 			js: {
