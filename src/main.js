@@ -147,4 +147,9 @@ program.command('twitterapi')
 		});
 	});
 
+program.command('test')
+	.action(function() {
+		require('./providers/meet')().then(console.log);
+	});
+
 program.parse(process.argv);

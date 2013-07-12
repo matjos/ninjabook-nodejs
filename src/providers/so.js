@@ -14,19 +14,6 @@ var buildUrls = function(ninjas) {
 	return url;
 };
 
-var getId = function(url) {
-	var match = /\/[0-9]*$/gi.exec(url);
-	return match[0].substring(1);
-};
-
-var addIds = function(ninjas) {
-	_.each(ninjas, function(ninja) {
-		if (!ninja.so.url) return;
-		ninja.so.id = getId(ninja.so.url);
-	});
-	return fileDb.save(ninjas);
-};
-
 var get = function(ninjas) {
 	var deferred = Q.defer();
 	
@@ -80,7 +67,6 @@ var addSoData = function(ninjas) {
 };
 
 module.exports = function(ninjas) {
-	return addIds(ninjas)
-		.then(addSoData)
+	return addSoData(ninjas)
 		.then(fileDb.save);
 };
