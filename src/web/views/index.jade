@@ -1,5 +1,21 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Did you know&hellip;
+  p that 
+    a(href="http://www.tretton37.com") tretton37 ninjas
+    |  together have accumulated the following?
+  ul.stats
+    li 
+      strong #{data.github.repos.sum} 
+      | github repositories
+    li 
+      strong #{data.github.gists.sum} 
+      | github gists 
+    li 
+      strong #{data.twitter.tweets.sum} 
+      | twitter tweets
+    li 
+      strong #{data.so.rep.sum} 
+      | reputation points on StackOverflow
+  

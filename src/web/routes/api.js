@@ -1,12 +1,11 @@
 
-var ninjabook = require('../../ninjas');
+var getTotalStats = require('../../stats/totals');
 
 /*
  * GET ninjas.
  */
 exports.list = function(req, res){
-	//res.send(['lol']);
-	ninjabook.requestNinjas().then(function(ninjas) {
-		res.send(ninjas);
+	getTotalStats().then(function(stats) {
+		res.send(stats);
 	});
 };

@@ -1,6 +1,7 @@
 body {
 	padding-top: 60px;
 	font-family: 'Roboto', "Lucida Grande", Helvetica, Arial, sans-serif;
+	font-size: 24px;
 }
 
 .navbar .navbar-inner {
@@ -12,4 +13,18 @@ body {
 .navbar .brand {
 	color: white;
 	font-weight: 300;
+}
+
+p, li {
+	line-height: 2.4em;
+}
+
+ul {
+	list-style: none;
+}
+
+li strong {
+	color: rgb(141, 198, 63);
+	font-size: 38px;
+	font-weight: 700;
 }
