@@ -52,7 +52,7 @@ module.exports = function(ninjas, options) {
 	});
 	
 	twitterers.each(function (ninja) {
-		var tweets = ninja.twitter.data.statuses_count
+		var tweets = ninja.twitter.data.statuses_count;
 		sums.tweets += tweets;
 		if(topNinja.tweets.twitter.data.statuses_count < tweets) {
 			topNinja.tweets = ninja;
