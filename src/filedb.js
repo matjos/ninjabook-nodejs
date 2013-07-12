@@ -47,18 +47,6 @@ module.exports.save = function (json) {
 	return saveJSON(json, dbfile);
 };
 
-module.exports.saveTwitterOauth = function(json) {
-	return saveJSON(json, twitterfile);
-};
-
 module.exports.load = function() {
 	return loadJSON(dbfile);
-};
-
-module.exports.loadTwitterOauth = function() {
-	var promise = loadJSON(twitterfile);
-	promise.fail(function() {
-		console.log("Failed to load twitter oauth settings. Set them with `ninjabook twitterapi`");
-	});
-	return promise;
 };

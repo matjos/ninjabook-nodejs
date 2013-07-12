@@ -125,29 +125,6 @@ program.command('badass')
 			require('./twitter').printBadass);		
 	});
 
-// TODO: Put OAuth credentials in environment variables instead (process.env)
-program.command('twitterapi')
-	.description('Prompts to save Twitter app OAuth credentials')
-	.action(function() {
-		var o = {};
-		program.prompt('Consumer key: ', function(input) {
-			o.consumer_key = input;
-			program.prompt('Consumer secret: ', function(input) {
-				o.consumer_secret = input;
-				program.prompt('Access token: ', function(input) {
-					o.oauth_token = input;
-					program.prompt('Access token key: ', function(input) {
-						o.oauth_token_secret = input;
-						require('./filedb').saveTwitterOauth(o).then(function() {
-							console.log('Saved twitter credentials');
-							process.stdin.destroy();
-						});
-					});
-				});
-			});
-		});
-	});
-
 program.command('totals')
 	.description('Prompts company totals')
 	.action(function() {

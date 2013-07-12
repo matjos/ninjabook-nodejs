@@ -2,6 +2,7 @@ var Q = require('q');
 var request = require('request');
 var _ = require('lodash');
 var OAuth = require('OAuth');
+var params = require('../oauthparams');
 
 var getTwitterData = function(oauth, params, screenNames) {
 	var deferred = Q.defer();
@@ -38,8 +39,8 @@ var filterTwitterers = function(ninjas) {
 var requestTwitterData = function(ninjas) {
 	var _ninjas = filterTwitterers(ninjas);
 
-	return require('./filedb').loadTwitterOauth().then(function(params) {
-		if (!params) {
+	return params.twitter().then(function(params) {
+		if (!params.consumer_key) {
 			var err = new Error('No params');
 			console.error(err);
 			throw err;

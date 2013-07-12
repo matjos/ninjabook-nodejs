@@ -73,7 +73,7 @@ var scrapeAllNinjas = function() {
 	console.log("Requesting: " + meetUrl + " ...");
 	request(meetUrl, function(err, resp, body) {
 		if (err) {
-			console.error(err);
+			console.error('Could not load the "meet the ninjas" page.');
 			deferred.reject(err);
 			return;
 		}

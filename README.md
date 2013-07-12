@@ -33,9 +33,15 @@ The following commands are available:
 
 ### Twitter
 
-If you want to download data from the Twitter API, issue `ninjabook twitterapi` to add OAuth credentials.
+Because of bandwidth throttling you need to authenticate to Twitter's API. So if you want to download data from the Twitter API, you need to set the following environment variables with the keys needed.
 
-* `ninjabook twitterapi` - Prompts for OAuth keys and secret words
+    export TWITTER_CONSUMER_KEY={the consumer key}
+    export TWITTER_CONSUMER_SECRET={the consumer secret}
+    export TWITTER_OAUTH_TOKEN={the access token}
+    export TWITTER_OAUTH_TOKEN_SECRET={the access token secret}
+
+You can get these OAuth keys by registering an application at [Twitter's Developers site](https://dev.twitter.com/apps). The keys should be listed in the application details page.
+
 * `ninjabook followers` - Prints out top 10 ninjas ranked by number of followers
 * `ninjabook friends` - Prints out top 10 ninjas ranked by number of friends
 * `ninjabook tweets` - Prints out top 10 ninjas ranked by number of tweets
