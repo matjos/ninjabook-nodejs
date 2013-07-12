@@ -1,4 +1,8 @@
+path = require('path');
+deps = require('matchdep');
+
 module.exports = function(grunt) {
+	deps.filterDev("grunt-*").forEach(grunt.loadNpmTasks);
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -10,12 +14,20 @@ module.exports = function(grunt) {
 				files: ['Gruntfile.js', './src/**/*.js'],
 				tasks: ['jshint']
 			}
+		},
+		express: {
+			dev: {
+				options: {
+					port: 9000,
+					bases: path.resolve('./src/web/public'),
+					monitor: {},
+					server: path.resolve('./src/web/app.js'),
+					debug: true
+				}
+			}
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-
-	grunt.registerTask('default', ['jshint']);
-	
+	grunt.registerTask('default', ['watch']);
+	grunt.registerTask('server', ['express', 'express-keepalive']);
 };

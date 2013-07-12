@@ -1,9 +1,12 @@
 {
-  "name": "ninjabook",
-  "version": "0.0.1",
+  "name": "ninjabookstats",
+  "version": "0.1.0",
   "description": "Get info on tretton37 ninjas",
+  "repository": "https://github.com/tretton37/ninjabook-nodejs",
   "main": "app.js",
+  "private": "true",
   "scripts": {
+    "start": "node src/web/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
@@ -16,10 +19,15 @@
   "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.1",
+    "grunt-express": "~0.3.6",
     "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-watch": "~0.4.4"
+    "grunt-contrib-watch": "~0.4.4",
+    "path": "~0.4.9",
+    "matchdep": "~0.1.2"
   },
   "dependencies": {
+    "express": "3.0.4",
+    "jade": "*",
     "cheerio": "~0.12.0",
     "request": "~2.21.0",
     "lodash": "~1.3.1",
