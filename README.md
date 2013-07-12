@@ -42,6 +42,10 @@ If you want to download data from the Twitter API, issue `ninjabook twitterapi` 
 * `ninjabook stalkers` - Prints out top 10 ninjas ranked by stalker quotient
 * `ninjabook badass` - Prints out top 10 ninjas ranked by badass quotient
 
+### Overall
+
+* `ninjabook totals` - Prompts totals for different stats such as repos, gists, etc.
+
 ## License
 
 [The MIT license (MIT)](http://opensource.org/licenses/MIT)

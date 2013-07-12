@@ -125,6 +125,7 @@ program.command('badass')
 			require('./twitter').printBadass);		
 	});
 
+// TODO: Put OAuth credentials in environment variables instead (process.env)
 program.command('twitterapi')
 	.description('Prompts to save Twitter app OAuth credentials')
 	.action(function() {
@@ -147,9 +148,11 @@ program.command('twitterapi')
 		});
 	});
 
-program.command('test')
+program.command('totals')
+	.description('Prompts company totals')
 	.action(function() {
-		require('./providers/meet')().then(console.log);
+		processNinjas("tretton37 Scores", 
+			require('./totals'));
 	});
 
 program.parse(process.argv);
