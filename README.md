@@ -1,8 +1,18 @@
 # The Ninja Book in Node.JS
 
-Get basic info and stats of your favorite tretton37 ninjas.
+Get basic info and stats of your favorite tretton37 ninjas. This project consists both of a command line interface (CLI) and a web server (express.js) and is deployable on Azure.
 
-## How to run
+## Web Server
+
+You need a recent version of [Node.JS](http://nodejs.org/) installed. Then you do the following:
+
+1. Clone the repo
+2. Install dependencies by executing the following on the cloned copy: `npm install`
+3. Start the web server with `node server`
+
+## Command Line Interface (CLI)
+
+### How to run
 
 You need a recent version of [Node.JS](http://nodejs.org/) installed. Then you do the following:
 
@@ -10,8 +20,6 @@ You need a recent version of [Node.JS](http://nodejs.org/) installed. Then you d
 2. Install dependencies by executing the following on the cloned copy: `npm install`
 3. Symlink the app with: `npm link`
 4. Run the app and list the commands with: `ninjabook help`
-
-## Commands
 
 The following commands are available:
 
