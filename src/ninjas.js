@@ -1,5 +1,5 @@
 var Q = require('q');
-var getMeet = require('./providers/meet');
+var getMeet = require('./providers/meet_data');
 
 var scrapeAllNinjas = function() {
 	var deferred = Q.defer();

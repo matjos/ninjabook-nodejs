@@ -2,7 +2,7 @@ var Q = require('q');
 var _ = require('lodash');
 var request = require('request');
 var print = require('./print');
-var loadSoData = require('./providers/so');
+var loadSoData = require('./providers/so_data');
 var moment = require('moment');
 
 module.exports.requestScores = function(ninjas) {
