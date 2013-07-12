@@ -1,3 +1,6 @@
 #!/usr/bin/env node
 
-require('./src/web/app');
+// making sure ninjas are loaded before starting express
+require('./src/ninjas').requestNinjas().then(function() {
+	require('./src/web/app');	
+});
