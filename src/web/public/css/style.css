@@ -32,7 +32,7 @@ strong {
 	color: rgb(141, 198, 63);
 }
 
-p.small {
+.small {
 	font-size: 14px;
 }
 
@@ -52,6 +52,10 @@ p.small {
 	line-height: 1em;
 	border-radius: 15px;
 	color: white;
+}
+
+.ninja-column {
+	padding: 0 10px 10px 5px;
 }
 
 .ninjas .icon-ninja {

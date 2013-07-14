@@ -9,7 +9,8 @@ block content
         a(href="http://www.tretton37.com") tretton37
         |  ninjas working to create a better community for software developers
   .ninjas.row
-    p.small.span12 Wonder how many ninjas that is? Here is one way to think about it:
+    .span12
+      p.ninja-column Wonder how many ninjas that is? Here is one way to think about it:
     - var count = data.ninjaCount;
     - var ninjaArr = [0, 0, 0];
     - for (var i = 0; count > 0; i++) { 
@@ -23,10 +24,11 @@ block content
     - }
     - var ninjaId = 0;
     - for(var col = 0; col < 3; col++)
-      .span4.ninja-column
-        -for(var i = 0; i < ninjaArr[col]; i++)
-          - ninjaId++
-          span(class="icon-ninja ninja-#{ninjaId}")
+      .span4
+        .ninja-column
+          -for(var i = 0; i < ninjaArr[col]; i++)
+            - ninjaId++
+            span(class="icon-ninja ninja-#{ninjaId}")
   .row
     .span4
       .center.big-icon
@@ -60,3 +62,4 @@ block content
         |  to help out the community with 
         strong #{data.so.rep.sum}
         |  reputation points on StackOverflow
+        span.small &nbsp; (this is admittedly less than Jon Skeet but we'll get there for sure!)
