@@ -10,25 +10,16 @@ block content
         |  ninjas working to create a better community for software developers
       p Wonder how many ninjas that is? Here is one way to think about it:
   .ninjas.row
-    - var count = data.ninjaCount;
-    - var ninjaArr = [0, 0, 0];
-    - for (var i = 0; count > 0; i++) { 
-    -   if (count >= 5) {
-    -     ninjaArr[i % 3] += 5;
-    -     count -= 5;
-    -   } else {
-    -     ninjaArr[i % 3] += count;
-    -     count = 0;
-    -   }
-    - }
-    - var ninjaId = 0;
-    - for(var col = 0; col < 3; col++)
-      .span4.ninja-column
-        -for(var i = 0; i < ninjaArr[col]; i++)
-          - ninjaId++
-          span(class="icon-ninja ninja-#{ninjaId}")
-          -if(i%5 == 4)
-            br
+    -var ninjaCount = data.ninjaCount
+    -var row = 0
+    -for(var i = 0; i < ninjaCount; row++)
+        div(class="span4 ninja-column #{row%2 == 0 ? 'ninja-column-even' : 'ninja-column-odd'}")
+          -for(var inner = 0; inner < 5 && i < ninjaCount; inner++)
+            -i++
+            span(class="icon-ninja ninja-#{i}")
+            -if(i % 5 === 3)
+              br.visible-tablet
+          div(class="spacer #{row%2 == 1 ? 'hidden-desktop' : 'visible-tablet'}")
   .row
     .span4
       .center.big-icon
