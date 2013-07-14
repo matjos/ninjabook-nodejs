@@ -83,7 +83,8 @@ var getTotals = function(ninjas) {
 					name: topNinja.gists.name,
 					score: topNinja.gists.github.data.public_gists
 				}
-			}
+			},
+			ninjaCount: githubbers.size()
 		},
 		twitter: {
 			tweets: {
@@ -92,7 +93,8 @@ var getTotals = function(ninjas) {
 					name: topNinja.tweets.name,
 					score: topNinja.tweets.twitter.data.statuses_count
 				}
-			}
+			},
+			ninjaCount: twitterers.size()
 		},
 		so: {
 			rep: {
@@ -101,8 +103,10 @@ var getTotals = function(ninjas) {
 					name: topNinja.rep.name,
 					score: topNinja.rep.so.data.reputation
 				}
-			}
-		}
+			},
+			ninjaCount: stackers.size()
+		},
+		ninjaCount: ninjas.length
 	};
 };
 

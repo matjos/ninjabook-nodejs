@@ -1,21 +1,31 @@
 extends layout
 
 block content
-  h1 Did you know&hellip;
-  p that 
-    a(href="http://www.tretton37.com") tretton37 ninjas
-    |  together have accumulated the following?
-  ul.stats
-    li 
-      strong #{data.github.repos.sum} 
-      | github repositories
-    li 
-      strong #{data.github.gists.sum} 
-      | github gists 
-    li 
-      strong #{data.twitter.tweets.sum} 
-      | twitter tweets
-    li 
-      strong #{data.so.rep.sum} 
-      | reputation points on StackOverflow
-  
+  .row
+    .span16
+      h1 Did you know?
+      p We are 
+        strong.big #{data.ninjaCount} 
+        a(href="http://www.tretton37.com") tretton37
+        |  ninjas working to create a better community
+  .row
+    .span4
+      p 
+        strong.big #{data.github.ninjaCount} 
+        |  ninjas use GitHub and have, in total, actively garnered  
+        strong #{data.github.repos.sum} 
+        |  great github repositories, both big and small, in project size and also helpfully written 
+        strong #{data.github.gists.sum} 
+        |  gists
+    .span4
+      p 
+        strong.big #{data.twitter.ninjaCount} 
+        |  ninjas use Twitter and have tweeted  
+        strong #{data.twitter.tweets.sum} 
+        |  helpful tweets in total
+    .span4
+      p
+        strong.big #{data.so.ninjaCount}
+        |  ninjas use StackOverflow to help out the community with 
+        strong #{data.so.rep.sum}
+        |  reputation points on StackOverflow

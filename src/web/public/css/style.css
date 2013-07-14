@@ -23,8 +23,11 @@ ul {
 	list-style: none;
 }
 
-li strong {
-	color: rgb(141, 198, 63);
+.big {
 	font-size: 38px;
-	font-weight: 700;
+	font-weight: 700;	
+}
+
+strong {
+	color: rgb(141, 198, 63);
 }
