@@ -75,3 +75,11 @@ strong {
 .icon-ninja.ninja-42 {
 	color: #444;
 }
+
+a.brand .icon-ninja {
+	padding: 5px 20px 5px 0; 
+	font-size: 36px; 
+	position: relative; 
+	top: -12px;
+	background-image: none;
+}
