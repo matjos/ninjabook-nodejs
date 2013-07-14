@@ -20,6 +20,8 @@ block content
             -if(i % 5 === 3)
               br.visible-tablet
           div(class="spacer #{row%2 == 1 ? 'hidden-desktop' : 'visible-tablet'}")
+          -if(row % 6 >= 3)
+            div.spacer.visible-desktop
   .row
     .span4
       .center.big-icon
