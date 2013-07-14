@@ -16,6 +16,9 @@ results
 npm-debug.log
 node_modules
 
+# MacOSX specifics
+.DS_Store
+
 # App specifics
 
 db.json

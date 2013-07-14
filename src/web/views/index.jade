@@ -2,30 +2,61 @@ extends layout
 
 block content
   .row
-    .span16
+    .span12
       h1 Did you know?
       p We are 
         strong.big #{data.ninjaCount} 
         a(href="http://www.tretton37.com") tretton37
-        |  ninjas working to create a better community
+        |  ninjas working to create a better community for software developers
+  .ninjas.row
+    p.small.span12 Wonder how many ninjas that is? Here is one way to think about it:
+    - var count = data.ninjaCount;
+    - var ninjaArr = [0, 0, 0];
+    - for (var i = 0; count > 0; i++) { 
+    -   if (count >= 5) {
+    -     ninjaArr[i % 3] += 5;
+    -     count -= 5;
+    -   } else {
+    -     ninjaArr[i % 3] += count;
+    -     count = 0;
+    -   }
+    - }
+    - var ninjaId = 0;
+    - for(var col = 0; col < 3; col++)
+      .span4.ninja-column
+        -for(var i = 0; i < ninjaArr[col]; i++)
+          - ninjaId++
+          span(class="icon-ninja ninja-#{ninjaId}")
   .row
     .span4
+      .center.big-icon
+        i.icon-github
       p 
         strong.big #{data.github.ninjaCount} 
-        |  ninjas use GitHub and have, in total, actively garnered  
+        |  ninjas use 
+        a(href="http://www.github.com") GitHub 
+        |  and have, in total, actively garnered  
         strong #{data.github.repos.sum} 
         |  great github repositories, both big and small, in project size and also helpfully written 
         strong #{data.github.gists.sum} 
         |  gists
     .span4
+      .center.big-icon
+        i.icon-twitter
       p 
         strong.big #{data.twitter.ninjaCount} 
-        |  ninjas use Twitter and have tweeted  
+        |  ninjas use 
+        a(href="http://www.twitter.com") Twitter
+        |  and have tweeted  
         strong #{data.twitter.tweets.sum} 
         |  helpful tweets in total
     .span4
+      .center.big-icon
+        i.icon-stackoverflow
       p
         strong.big #{data.so.ninjaCount}
-        |  ninjas use StackOverflow to help out the community with 
+        |  ninjas use 
+        a(href="http://stackoverflow.com") StackOverflow
+        |  to help out the community with 
         strong #{data.so.rep.sum}
         |  reputation points on StackOverflow

@@ -16,7 +16,7 @@ body {
 }
 
 p, li {
-	line-height: 2.4em;
+	line-height: 1.8em;
 }
 
 ul {
@@ -30,4 +30,42 @@ ul {
 
 strong {
 	color: rgb(141, 198, 63);
+}
+
+p.small {
+	font-size: 14px;
+}
+
+.big-icon {
+	color: #444;
+	font-size: 42px;
+	line-height: 1em;
+	text-shadow: rgba(141, 198, 63, 0.7) 1px 1px 15px;
+	margin-bottom: 0.3em;
+}
+
+.ninjas {
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	margin-bottom: 1.2em;
+	background-color: rgb(141, 198, 63);
+	line-height: 1em;
+	border-radius: 15px;
+	color: white;
+}
+
+.ninjas .icon-ninja {
+	color: white;
+	font-size: 57px;
+	line-height: 1em;
+	width: 54px;
+	position: relative;
+	top: -0.25em;
+	text-shadow: rgba(255, 255, 255, 0.25) 0 0 15px;
+	height: 44px;
+	background-image: none;
+}
+
+.icon-ninja.ninja-42 {
+	color: #444;
 }
