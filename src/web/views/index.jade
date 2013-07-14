@@ -23,11 +23,12 @@ block content
     - }
     - var ninjaId = 0;
     - for(var col = 0; col < 3; col++)
-      .span4
-        .ninja-column
-          -for(var i = 0; i < ninjaArr[col]; i++)
-            - ninjaId++
-            span(class="icon-ninja ninja-#{ninjaId}")
+      .span4.ninja-column
+        -for(var i = 0; i < ninjaArr[col]; i++)
+          - ninjaId++
+          span(class="icon-ninja ninja-#{ninjaId}")
+          -if(i%5 == 4)
+            br
   .row
     .span4
       .center.big-icon

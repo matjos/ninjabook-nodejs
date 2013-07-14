@@ -56,12 +56,15 @@ strong {
 }
 
 .ninja-column {
+	/*
 	padding: 5px 10px 10px 5px;
 	max-width: 250px;
+	*/
+	text-align: center;
 }
 
 .ninjas .icon-ninja {
-	color: white;
+	color: #444;
 	font-size: 50px;
 	line-height: 1em;
 	width: 49px;
@@ -73,7 +76,7 @@ strong {
 }
 
 .icon-ninja.ninja-42 {
-	color: #444;
+	color: white;
 }
 
 a.brand .icon-ninja {
