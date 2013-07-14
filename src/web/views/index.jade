@@ -5,7 +5,7 @@ block content
     .span12
       h1 Did you know?
       p We are 
-        strong.big #{data.ninjaCount} 
+        strong.big #{data.fNinjaCount} 
         a(href="http://www.tretton37.com") tretton37
         |  ninjas working to create a better community for software developers
       p Wonder how many ninjas that is? Here is one way to think about it:
@@ -37,28 +37,30 @@ block content
         |  ninjas use 
         a(href="http://www.github.com") GitHub 
         |  and have, in total, actively garnered  
-        strong #{data.github.repos.sum} 
+        strong #{data.github.repos.fsum} 
         |  great github repositories, both big and small, in project size and also helpfully written 
-        strong #{data.github.gists.sum} 
+        strong #{data.github.gists.fsum} 
         |  gists
     .span4
       .center.big-icon
         i.icon-twitter
       p 
-        strong.big #{data.twitter.ninjaCount} 
+        strong.big #{data.twitter.fNinjaCount} 
         |  ninjas use 
         a(href="http://www.twitter.com") Twitter
         |  and have tweeted  
-        strong #{data.twitter.tweets.sum} 
+        strong #{data.twitter.tweets.fsum} 
         |  helpful tweets in total
     .span4
       .center.big-icon
         i.icon-stackoverflow
       p
-        strong.big #{data.so.ninjaCount}
+        strong.big #{data.so.fNinjaCount}
         |  ninjas use 
         a(href="http://stackoverflow.com") StackOverflow
         |  to help out the community with 
-        strong #{data.so.rep.sum}
+        strong #{data.so.rep.fsum}
         |  reputation points on StackOverflow
-        span.small &nbsp; (this is admittedly less than Jon Skeet but we'll get there for sure!)
+        span.small &nbsp; (this is admittedly less than 
+          a(href="http://stackoverflow.com/users/22656/jon-skeet") Jon Skeet
+          |  but we'll get there for sure!)

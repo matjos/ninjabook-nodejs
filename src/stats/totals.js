@@ -1,5 +1,6 @@
 var ninjabook = require('../ninjas');
 var _ = require('lodash');
+var humanize = require('humanize');
 
 var getGitHubbers = function(ninjas) {
 	return _(ninjas).filter(function(ninja) {
@@ -68,44 +69,64 @@ var getTotals = function(ninjas) {
 		}
 	});
 	
+	var fnum = function(num) {
+		return humanize.numberFormat(num, 0, ',', ' ');
+	};
+	
 	return {
 		github: {
 			repos: {
 				sum: sums.repos,
+				fsum: fnum(sums.repos),
 				topNinja: {
 					name: topNinja.repos.name,
-					score: topNinja.repos.github.data.public_repos
+					url: topNinja.repos.github.url,
+					score: topNinja.repos.github.data.public_repos,
+					fscore: fnum(topNinja.repos.github.data.public_repos)
 				}
 			},
 			gists: {
 				sum: sums.gists,
+				fsum: fnum(sums.gists),
 				topNinja: {
 					name: topNinja.gists.name,
-					score: topNinja.gists.github.data.public_gists
+					url: topNinja.gists.github.url,
+					score: topNinja.gists.github.data.public_gists,
+					fscore: fnum(topNinja.repos.github.data.public_gists)
 				}
 			},
+			fNinjaCount: fnum(githubbers.size()),
 			ninjaCount: githubbers.size()
 		},
 		twitter: {
 			tweets: {
 				sum: sums.tweets,
+				fsum: fnum(sums.tweets),
 				topNinja: {
 					name: topNinja.tweets.name,
-					score: topNinja.tweets.twitter.data.statuses_count
+					url: topNinja.tweets.twitter.url,
+					score: topNinja.tweets.twitter.data.statuses_count,
+					fscore: fnum(topNinja.tweets.twitter.data.statuses_count)
 				}
 			},
+			fNinjaCount: fnum(twitterers.size()),
 			ninjaCount: twitterers.size()
 		},
 		so: {
 			rep: {
 				sum: sums.rep,
+				fsum: fnum(sums.rep),
 				topNinja: {
 					name: topNinja.rep.name,
-					score: topNinja.rep.so.data.reputation
+					url: topNinja.rep.so.url,
+					score: topNinja.rep.so.data.reputation,
+					fscore: fnum(topNinja.rep.so.data.reputation)
 				}
 			},
+			fNinjaCount: fnum(stackers.size()),
 			ninjaCount: stackers.size()
 		},
+		fNinjaCount: fnum(ninjas.length),
 		ninjaCount: ninjas.length
 	};
 };
