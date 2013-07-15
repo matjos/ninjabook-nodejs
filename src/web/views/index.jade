@@ -44,7 +44,7 @@ block content
         |  ninjas use 
         a(href="http://www.twitter.com") Twitter
         |  and have tweeted  
-        strong #{data.twitter.tweets.fsum} 
+        strong !{data.twitter.tweets.fsum.replace(' ', '&nbsp;')} 
         |  helpful tweets in total.
       p That's a lot of social networking with the community going on!
     .span4
@@ -55,7 +55,7 @@ block content
         |  ninjas use 
         a(href="http://stackoverflow.com") StackOverflow
         |  to help out the community with 
-        strong #{data.so.rep.fsum}
+        strong !{data.so.rep.fsum.replace(' ', '&nbsp;')}
         |  reputation points on StackOverflow
       p.small This is admittedly less than 
           a(href="http://stackoverflow.com/users/22656/jon-skeet") Jon Skeet
