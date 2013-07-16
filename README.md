@@ -19,7 +19,7 @@ You need a recent version of [Node.JS](http://nodejs.org/) installed. Then you d
 1. Clone the repo
 2. Install dependencies by executing the following on the cloned copy: `npm install`
 3. Symlink the app with: `npm link`
-4. Run the app and list the commands with: `ninjabook help`
+4. Run the app and list the commands with: `ninjabook --help`
 
 The following commands are available:
 
