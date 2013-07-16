@@ -35,3 +35,9 @@ module.exports.printBadges = function(ninjas, options) {
 		return badgeSum(ninja);
 	});
 };
+
+module.exports.printWeeklyScores = function(ninjas, options) {
+    print.ranked(filtered(ninjas), options, function(ninja) {
+        return ninja.so.data.reputation_change_week;
+    });
+};

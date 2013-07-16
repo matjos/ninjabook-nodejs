@@ -44,6 +44,13 @@ program.command('stack')
 			require('./stackoverflow').printScores);
 	});
 
+program.command('stackweekly')
+    .description('Shows the StackOverflow weekly rep highscore')
+    .action(function (){
+        processNinjas("StackOverflow Highscore",
+            require('./stackoverflow').printWeeklyScores);
+    });
+
 program.command('stackvets')
 	.description('Shows the StackOverflow veterans (ordered by id)')
 	.action(function (){
