@@ -1,6 +1,6 @@
 module.exports = function(ninjas, options) {
 
-	var data = require('./stats/totals')(ninjas);
+	var data = require('../stats/totals')(ninjas);
 	
 	console.log(data.github.ninjaCount + ' ninjas uses Github');
 	console.log('Total no. of public repos:\t', data.github.repos.sum, 'repos');

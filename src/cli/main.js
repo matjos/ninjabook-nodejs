@@ -1,8 +1,8 @@
-var ninjabook = require('./ninjas');
+var ninjabook = require('../ninjas');
 var _ = require('lodash');
 var S = require('string');
 var program = require('commander');
-var pjson = require('../package.json');
+var pjson = require('../../package.json');
 var colors = require('colors');
 
 var printHeader = function(header) {
