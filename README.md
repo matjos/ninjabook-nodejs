@@ -31,6 +31,7 @@ The following commands are available:
 ### Stack overflow
 
 * `ninjabook stack` - Prints out the ninja StackOverflow rep highscore
+* `ninjabook stackweekly` - Prints out the StackOverflow weekly rep highscores
 * `ninjabook stackvets` - Prints out the StackOverflow veterans (sorted by id)
 * `ninjabook badges` - Prints out the StackOverflow badge count highscore
 
