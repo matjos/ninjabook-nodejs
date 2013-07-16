@@ -1,97 +1,32 @@
-var _ = require('lodash');
-
-var getGitHubbers = function(ninjas) {
-	return _(ninjas).filter(function(ninja) {
-		return ninja.github.data;
-	});
-};
-
-var getTwitterers = function(ninjas) {
-	return _(ninjas).filter(function(ninja) {
-		return ninja.twitter.data;
-	});
-};
-
-var getStackers = function(ninjas) {
-	return _(ninjas).filter(function(ninja) {
-		return ninja.so.data;
-	});
-};
-
-
 module.exports = function(ninjas, options) {
-	var sums = {
-		repos: 0,
-		gists: 0,
-		tweets: 0,
-		rep: 0
-	};
 
-	var githubbers = getGitHubbers(ninjas);
-	var twitterers = getTwitterers(ninjas);
-	var stackers = getStackers(ninjas);
-
-	var topNinja = {
-		repos: githubbers.first(),
-		gists: githubbers.first(),
-		tweets: twitterers.first(),
-		rep: stackers.first()
-	};
+	var data = require('./stats/totals')(ninjas);
 	
-	githubbers.each(function (ninja) {
-		var repos = ninja.github.data.public_repos;
-		sums.repos += repos;
-		if(topNinja.repos.github.data.public_repos < repos) {
-			topNinja.repos = ninja;
-		}
-		var gists = ninja.github.data.public_gists;
-		sums.gists += gists;
-		if(topNinja.gists.github.data.public_gists < gists) {
-			topNinja.gists = ninja;
-		}
-	});
-	
-	twitterers.each(function (ninja) {
-		var tweets = ninja.twitter.data.statuses_count;
-		sums.tweets += tweets;
-		if(topNinja.tweets.twitter.data.statuses_count < tweets) {
-			topNinja.tweets = ninja;
-		}
-	});
-	
-	stackers.each(function (ninja) {
-		var rep = ninja.so.data.reputation;
-		sums.rep += rep;
-		if(topNinja.rep.so.data.reputation < rep) {
-			topNinja.rep = ninja;
-		}
-	});
-	
-	console.log(githubbers.size() + ' ninjas uses Github');
-	console.log('Total no. of public repos:\t', sums.repos, 'repos');
-	console.log(' ', topNinja.repos.name, 
+	console.log(data.github.ninjaCount + ' ninjas uses Github');
+	console.log('Total no. of public repos:\t', data.github.repos.sum, 'repos');
+	console.log(' ', data.github.repos.topNinja.name, 
 		'has the most with', 
-		topNinja.repos.github.data.public_repos, 
+		data.github.repos.topNinja.score, 
 		"repos");
-	console.log('Total no. of public gists:\t', sums.gists, 'gists');
-	console.log(' ', topNinja.gists.name, 
+	console.log('Total no. of public gists:\t', data.github.gists.sum, 'gists');
+	console.log(' ', data.github.gists.topNinja.name, 
 		'has the most with', 
-		topNinja.gists.github.data.public_gists, 
+		data.github.gists.topNinja.score, 
 		"gists");
 		
-	console.log(twitterers.size() + ' ninjas uses Twitter');
-	console.log('Total no. of tweets:\t\t', sums.tweets, 'tweets');
-	console.log(' ', topNinja.tweets.name, 
+	console.log(data.twitter.ninjaCount + ' ninjas uses Twitter');
+	console.log('Total no. of tweets:\t\t', data.twitter.tweets.sum, 'tweets');
+	console.log(' ', data.twitter.tweets.topNinja.name, 
 		'has tweeted the most with', 
-		topNinja.tweets.twitter.data.statuses_count, 
+		data.twitter.tweets.topNinja.score, 
 		"tweets");
 	
 	
-	console.log(stackers.size() + ' ninjas uses StackOverflow');
-	console.log('Total amount of rep:\t\t', sums.rep, 'points');
-	console.log(' ', topNinja.rep.name, 
+	console.log(data.so.ninjaCount + ' ninjas uses StackOverflow');
+	console.log('Total amount of rep:\t\t', data.so.rep.sum, 'points');
+	console.log(' ', data.so.rep.topNinja.name, 
 		'is the most reputable with', 
-		topNinja.rep.so.data.reputation, 
+		data.so.rep.topNinja.score, 
 		"points");
 	
 	

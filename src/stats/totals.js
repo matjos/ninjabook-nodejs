@@ -1,4 +1,3 @@
-var ninjabook = require('../ninjas');
 var _ = require('lodash');
 var humanize = require('humanize');
 
@@ -131,6 +130,9 @@ var getTotals = function(ninjas) {
 	};
 };
 
-module.exports = function() {
-	return ninjabook.requestNinjas().then(getTotals);
+module.exports = function(ninjas) {
+	if (!ninjas) {
+		return require('../ninjas').requestNinjas().then(getTotals);		
+	}
+	return getTotals(ninjas);
 };
